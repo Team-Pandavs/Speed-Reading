@@ -11,12 +11,12 @@ export default function Home() {
     if (type=="pdf") {
         const pdfFile = new FormData()
         pdfFile.append('file', file)
-        axios.post("http://localhost:4000/speedread",pdfFile).then(res=> {
+        axios.post(`http://${process.env.URL}:4000/speedread`,pdfFile).then(res=> {
             setSpeedReadText(res.data.bionicRead)
         })
         
     } else {
-    const data = await fetch("http://localhost:4000", {method: "POST",     headers: {
+    const data = await fetch(`http://${process.env.URL}:4000`, {method: "POST",     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },body: JSON.stringify({content: text})}).then(res=> res.json())
