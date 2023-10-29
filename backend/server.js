@@ -4,8 +4,25 @@ const multer = require("multer")
 app.use(express.json())
 const { PdfDataParser } = require("pdf-data-parser"); 
 const fs = require("fs")
+const cors = require("cors")
+require('dotenv').config()
 app.use(express.static('./public'))
+app.use(cors())
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+  if (req.method == "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
 
+  next();
+});
+
+app.use(express.urlencoded({extended: false}))
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
     cb(null, 'public')
@@ -19,8 +36,8 @@ function convertToBionicRead(data) {
     data = data.split(" ")
     for (let word of data) { 
         if (word.length > 1) {
-            let impactWord = `<strong>${word.slice(0,(Math.floor(word.length/2)))}</strong>`
-            let mainWord = word.split(word.slice(0,(Math.floor(word.length/2))))[1]
+            let impactWord = `<strong>${word.slice(0,(Math.ceil(word.length/2)))}</strong>`
+            let mainWord = word.split(word.slice(0,(Math.ceil(word.length/2))))[1]
             
             let bionicWord = impactWord+mainWord
             finalString = finalString + bionicWord + " "
@@ -41,6 +58,9 @@ app.post("/", (req,res)=> {
     }
 })
 
+app.get("/",(req,res)=> {
+    res.json("Made by Shubham and Satvik")
+})
 app.post("/speedread", (req,res)=> {
 
     upload(req, res,  async function (err) {
@@ -52,17 +72,24 @@ app.post("/speedread", (req,res)=> {
            const filer = req.file
 
 
+            try {
             let parser = new PdfDataParser({url: filer.path});
             (async function convert() {
-                var rows = await parser.parse()
-    
+                let rows = await parser.parse()
+                if (rows.length) {
+                    fs.unlinkSync(filer.path)
                 res.json(convertToBionicRead(rows[0][0]))
-            })()
+                } else {
+                    res.json({"bionicRead":"Document Contains Complex Data, Try Another"})
+                }
+            })() } catch(e) {
+                res.json("Can't Parse This Document, Try Another")
+            }
 
           
     })
 })
 
-app.listen(3000, ()=> {
-    console.log("Server Started at 3000")
+app.listen(process.env.PORT, ()=> {
+    console.log(`Server Started at ${process.env.PORT}`)
 })
