@@ -1,1 +1,155 @@
---import 
+-- import: package/base-layout as layout
+-- import: package/lib as lib
+
+-- layout.base-layout:
+
+-- ftd.row:
+width: fill-container
+align-content: center
+
+-- ftd.container:
+width: fill-container
+padding-bottom.px: 20
+
+-- ftd.mobile:
+-- ftd.column:
+width: fill-container
+align-content: center
+margin-top.px: 30
+spacing.fixed.px: 20
+
+-- ftd.column:
+width: fill-container
+align-content: center
+spacing.fixed.px: 20
+
+-- lib.hero-ui-base-text-wrapper:
+firstTitle: This is
+secondTitle: Speed Reader,
+
+-- lib.hero-ui-base-text-wrapper:
+firstTitle: An App makes reading
+secondTitle: FAST
+
+-- lib.hero-ui-base-text-wrapper:
+firstTitle: made with Node and
+secondTitle: FASTN.
+
+-- ftd.text: According to the Study people with ADHD have some issue while readind to discard such problems and help them read faster and they can enjoy reading we have made Speed Reading.
+role: $lib.home-description-responsive-typography
+margin-top.px: 10
+max-width.fixed.px: 700
+min-width.fixed.px: 450
+white-space: normal
+
+-- ftd.column:
+width: fill-container
+align-content: center
+spacing.fixed.px: 10
+
+-- end: ftd.column
+-- ftd.column:
+width: fill-container
+align-content: center
+spacing.fixed.px: 10
+
+-- lib.hero-ui-base-text-wrapper:
+firstTitle:Want to  Try
+secondTitle: .
+
+-- ftd.text-input:
+placeholder: Type any text ...
+padding-horizontal.px: 16
+padding-vertical.px: 8
+width.fixed.px: 200
+border-width.px: 1
+border-color: $inherited.colors.border
+border-radius.px: 4
+
+-- ftd.text:
+
+
+-- end: ftd.column
+-- end: ftd.column
+-- end: ftd.column
+
+
+
+-- end: ftd.mobile
+
+
+-- ftd.desktop:
+-- ftd.row:
+margin-top.px: 60
+spacing.fixed.px: 100
+-- ftd.column:
+width: fill-container
+align-content: center
+spacing.fixed.px: 20
+
+-- lib.hero-ui-base-text-wrapper:
+firstTitle: This is
+secondTitle: Speed Reader,
+
+-- lib.hero-ui-base-text-wrapper:
+firstTitle: An Application that makes reading
+secondTitle: FAST
+
+-- lib.hero-ui-base-text-wrapper:
+firstTitle: made with Node and
+secondTitle: FASTN.
+
+-- ftd.text: According to the Study people with ADHD have some issue while readind to discard such problems and help them read faster and they can enjoy reading we have made Speed Reading.
+role: $lib.home-description-responsive-typography
+margin-top.px: 10
+max-width.fixed.px: 700
+min-width.fixed.px: 450
+white-space: normal
+
+-- ftd.text:Speed Reading takes book pdf as an input convert into the form of random bold characters and convert it into a new pdf for ADHD students. This allows students to read quickly and with attention. 
+role: $lib.home-description-responsive-typography
+margin-top.px: 10
+max-width.fixed.px: 700
+min-width.fixed.px: 450
+white-space: normal
+
+
+-- ftd.column:
+width: fill-container
+align-content: center
+spacing.fixed.px: 10
+
+-- lib.hero-ui-base-text-wrapper:
+firstTitle:Want to  Try
+secondTitle: .
+
+-- ftd.text-input:
+placeholder: Type any text ...
+padding-horizontal.px: 16
+padding-vertical.px: 8
+width.fixed.px: 200
+border-width.px: 1
+border-color: $inherited.colors.border
+border-radius.px: 4
+
+-- ftd.text:
+
+
+
+
+
+-- end: ftd.column
+
+-- end: ftd.column
+
+-- end: ftd.row
+
+-- end: ftd.desktop
+
+
+-- end: ftd.container
+-- end: ftd.row
+
+
+-- end: layout.base-layout
+
