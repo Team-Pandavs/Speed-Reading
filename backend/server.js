@@ -4,8 +4,10 @@ const multer = require("multer")
 app.use(express.json())
 const { PdfDataParser } = require("pdf-data-parser"); 
 const fs = require("fs")
+const cors = require("cors")
 app.use(express.static('./public'))
-
+app.use(cors())
+app.use(express.urlencoded({extended: false}))
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
     cb(null, 'public')
@@ -19,8 +21,8 @@ function convertToBionicRead(data) {
     data = data.split(" ")
     for (let word of data) { 
         if (word.length > 1) {
-            let impactWord = `<strong>${word.slice(0,(Math.floor(word.length/2)))}</strong>`
-            let mainWord = word.split(word.slice(0,(Math.floor(word.length/2))))[1]
+            let impactWord = `<strong>${word.slice(0,(Math.ceil(word.length/2)))}</strong>`
+            let mainWord = word.split(word.slice(0,(Math.ceil(word.length/2))))[1]
             
             let bionicWord = impactWord+mainWord
             finalString = finalString + bionicWord + " "
@@ -63,6 +65,6 @@ app.post("/speedread", (req,res)=> {
     })
 })
 
-app.listen(3000, ()=> {
-    console.log("Server Started at 3000")
+app.listen(4000, ()=> {
+    console.log("Server Started at 4000")
 })
