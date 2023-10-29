@@ -54,12 +54,18 @@ app.post("/speedread", (req,res)=> {
            const filer = req.file
 
 
+            try {
             let parser = new PdfDataParser({url: filer.path});
             (async function convert() {
-                var rows = await parser.parse()
-    
+                let rows = await parser.parse()
+                if (rows.length) {
                 res.json(convertToBionicRead(rows[0][0]))
-            })()
+                } else {
+                    res.json({"bionicRead":"Document Contains Complex Data, Try Another"})
+                }
+            })() } catch(e) {
+                res.json("Can't Parse This Document, Try Another")
+            }
 
           
     })
