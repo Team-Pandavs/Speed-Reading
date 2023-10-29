@@ -8,6 +8,20 @@ const cors = require("cors")
 require('dotenv').config()
 app.use(express.static('./public'))
 app.use(cors())
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+  if (req.method == "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+
+  next();
+});
+
 app.use(express.urlencoded({extended: false}))
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
