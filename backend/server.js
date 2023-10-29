@@ -44,6 +44,9 @@ app.post("/", (req,res)=> {
     }
 })
 
+app.get("/",(req,res)=> {
+    res.json("Made by Shubham and Satvik")
+})
 app.post("/speedread", (req,res)=> {
 
     upload(req, res,  async function (err) {
