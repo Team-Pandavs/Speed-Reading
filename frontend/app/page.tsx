@@ -1,16 +1,29 @@
 "use client"
 import { useState } from "react"
+import axios from "axios"
 export default function Home() {
   const [text, setText] = useState("")
+  const [file, setFile] = useState(null)
   const [speedReadText, setSpeedReadText] = useState("")
-  const getBionicReader = async function() {
+
+  const getPDF = async function() {}
+  const getBionicReader = async function(type) {
+    if (type=="pdf") {
+        const pdfFile = new FormData()
+        pdfFile.append('file', file)
+        axios.post("http://localhost:4000/speedread",pdfFile).then(res=> {
+            setSpeedReadText(res.data.bionicRead)
+        })
+        
+    } else {
     const data = await fetch("http://localhost:4000", {method: "POST",     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },body: JSON.stringify({content: text})}).then(res=> res.json())
     setSpeedReadText(data.bionicRead)
-    
+}
   }
+  
   return (
     <section className="bg-white dark:bg-gray-900">
     <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
@@ -20,8 +33,23 @@ export default function Home() {
         </a>
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">SuperVision</h1>
         <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Speed Read Anything with Just a Click</p>
-        
-
+        <div className="flex items-center justify-center text-white"><form>
+  <label className="block">
+    <input type="file" accept="application/pdf" className="block w-full text-sm text-white-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-md file:border-0
+      file:text-sm file:font-semibold
+      file:bg-blue-500 file:text-white
+      hover:file:bg-blue-600
+    " onChange={e=> setFile(e.target.files[0])}/>
+    <button onClick={(e)=> { e.preventDefault()
+        getBionicReader("pdf")}} className="relative inline-flex items-center justify-center p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out rounded-full shadow-xl group hover:ring-1 hover:ring-purple-500">
+<span className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-600 via-purple-600 to-pink-700"></span>
+<span className="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-pink-500 rounded-full opacity-30 group-hover:rotate-90 ease"></span>
+<span className="relative text-white">SpeedRead PDF</span>
+</button>
+  </label>
+</form></div>
         <div className="flex flex-col justify-center m-auto items-center m-10">
 <textarea placeholder="Get Started Now" className='text-black p-5 m-5' style={{width: 500}} onChange={(e)=> setText(e.target.value)} id="normalText" name="normalText" rows="10" cols="50"/>
 <div className="relative inline-flex  group">
@@ -34,9 +62,18 @@ export default function Home() {
         </button>
         
     </div>
-    <div><p dangerouslySetInnerHTML={{__html: speedReadText}}></p></div>
+    {(speedReadText) ? <div
+  className="block rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 my-10" style={{width: 500}}>
+  <div className="p-6" style={{height: "500px", overflowY: "scroll"}}>
+
+    <h5
+      className="mb-1 text-xl font-medium leading-2 text-neutral-800 dark:text-neutral-50" style={{letterSpacing: 0, lineHeight: "40px", color: "#c5bbbb"}} dangerouslySetInnerHTML={{__html: speedReadText}}>
+    </h5>
+    
+  </div>
+</div> : null}
         </div>
-        <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
+        <div className="px-4 mt-5 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
             <span className="font-semibold text-gray-400 uppercase">BUILT FOR</span>
             <div className="flex flex-wrap justify-center items-center mt-8 text-gray-500 sm:justify-between">
                 <a href="#" className="mr-5 mb-5 lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400">
