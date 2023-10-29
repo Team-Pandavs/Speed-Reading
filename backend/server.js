@@ -59,6 +59,7 @@ app.post("/speedread", (req,res)=> {
             (async function convert() {
                 let rows = await parser.parse()
                 if (rows.length) {
+                    fs.unlinkSync(filer.path)
                 res.json(convertToBionicRead(rows[0][0]))
                 } else {
                     res.json({"bionicRead":"Document Contains Complex Data, Try Another"})
