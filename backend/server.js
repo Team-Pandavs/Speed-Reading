@@ -35,15 +35,14 @@ var upload = multer({ storage: storage }).single('file')
 app.post("/", (req,res)=> {
     if (req.body.content) {
         let data = req.body.content
-        let final = convertToBionicRead(data)
-        res.json(final)
+        res.json(convertToBionicRead(data))
     } else {
         res.json("No Data In Request")
     }
 })
 
 app.post("/speedread", (req,res)=> {
-    let pdfData = "";
+
     upload(req, res,  async function (err) {
            if (err instanceof multer.MulterError) {
                return res.status(500).json(err)
@@ -51,15 +50,15 @@ app.post("/speedread", (req,res)=> {
                return res.status(500).json(err)
            }
            const filer = req.file
-           console.log(filer)
+
 
             let parser = new PdfDataParser({url: filer.path});
-            async function convert() {
+            (async function convert() {
                 var rows = await parser.parse()
     
                 res.json(convertToBionicRead(rows[0][0]))
-            }
-            convert()
+            })()
+
           
     })
 })
