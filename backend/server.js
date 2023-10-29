@@ -72,6 +72,6 @@ app.post("/speedread", (req,res)=> {
     })
 })
 
-app.listen(4000, ()=> {
-    console.log("Server Started at 4000")
+app.listen(process.env.PORT, ()=> {
+    console.log(`Server Started at ${process.env.PORT}`)
 })
