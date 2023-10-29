@@ -5,6 +5,7 @@ app.use(express.json())
 const { PdfDataParser } = require("pdf-data-parser"); 
 const fs = require("fs")
 const cors = require("cors")
+require('dotenv').config()
 app.use(express.static('./public'))
 app.use(cors())
 app.use(express.urlencoded({extended: false}))
