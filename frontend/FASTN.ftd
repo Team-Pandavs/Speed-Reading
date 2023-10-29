@@ -1,0 +1,7 @@
+-- import: fastn
+-- fastn.package:Speed-Reading
+
+-- fastn.dependency: fastn-community.github.io/inter-typography
+-- fastn.dependency: fastn-community.github.io/blue-heal-cs as blue-heal-cs
+
+-- fastn.dependency: ayushsoni1010.github.io/ui-packages as package

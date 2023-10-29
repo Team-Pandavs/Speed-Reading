@@ -1,0 +1,24 @@
+;; -- import: dependencies...
+
+;; --------------------------------------------------------------
+;; --------------------------------------------------------------
+
+;; ********** BaseLayout Component **********
+
+-- component base-layout:
+children props:
+
+-- ftd.column:
+children: $base-layout.props
+width: fill-container
+max-width.fixed.px: 1500
+align-self: center
+padding-left.percent: 7.4
+padding-right.percent: 7.4
+
+-- end: ftd.column
+
+-- end: base-layout
+
+;; --------------------------------------------------------------
+;; --------------------------------------------------------------
